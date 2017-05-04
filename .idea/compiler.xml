@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="project-a_main" target="1.8" />
+      <module name="project-a_test" target="1.8" />
+      <module name="project-b_main" target="1.8" />
+      <module name="project-b_test" target="1.8" />
+      <module name="project-c_main" target="1.8" />
+      <module name="project-c_test" target="1.8" />
+      <module name="projects-project-a_main" target="1.8" />
+      <module name="projects-project-a_test" target="1.8" />
+      <module name="projects-project-b_main" target="1.8" />
+      <module name="projects-project-b_test" target="1.8" />
+      <module name="projects_main" target="1.8" />
+      <module name="projects_test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

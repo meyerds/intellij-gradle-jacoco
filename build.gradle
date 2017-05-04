@@ -1,0 +1,62 @@
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.5'
+    distributionType = Wrapper.DistributionType.ALL
+}
+
+allprojects {
+    apply plugin: 'jacoco'
+
+    group = 'com.meyerds.github.intellij_gradle_jacoco'
+    version = '1.0.0-SNAPSHOT'
+
+    repositories {
+        jcenter()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+    ext {
+        hamcrestVersion = '1.3'
+        junitVersion = '4.12'
+        logbackVersion = '1.2.3'
+        mockitoVersion = '1.10.19'
+        powermockVersion = '1.6.4'
+        slf4jVersion = '1.7.25'
+    }
+
+    dependencies {
+        compile "org.slf4j:slf4j-api:$slf4jVersion"
+
+        runtime "ch.qos.logback:logback-classic:$logbackVersion"
+
+        testCompile "org.hamcrest:hamcrest-all:$hamcrestVersion"
+        testCompile "org.mockito:mockito-all:$mockitoVersion"
+        testCompile("junit:junit:$junitVersion") {
+            exclude(module: 'hamcrest-core')
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete "$projectDir/build"
+}
+
+task test(type: JacocoMerge) {
+    dependsOn subprojects.test
+
+    destinationFile = file("$projectDir/build/jacoco/coverage.exec")
+    subprojects.each {
+        executionData it.tasks.withType(Test)
+    }
+
+    doFirst {
+        executionData = files(executionData.findAll {
+            it.exists()
+        })
+    }
+}
